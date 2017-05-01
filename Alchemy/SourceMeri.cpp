@@ -5,3 +5,13 @@
 #include <map>
 #include <vector>
 #include <string>
+
+void Combinaciones()
+{
+
+}
+
+void main()
+{
+	Combinaciones();
+}
