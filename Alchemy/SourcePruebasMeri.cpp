@@ -1,3 +1,4 @@
+/*
 while (getline(fentrada, linea))
 {
 	do
@@ -22,3 +23,19 @@ while (getline(fentrada, linea))
 	std::cout << element << "=" << key.first << "+" << key.second << std::endl;
 	contador++;
 }
+
+void Delete()
+{
+int posicion;
+std::cin >> posicion;
+element.erase(element.begin() + posicion);
+}
+
+void Info()
+{
+int posicion;
+std::cin >> posicion;
+std::string url;
+url = "https://en.wikipedia.org/wiki/" + element[posicion]
+ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+}*/
