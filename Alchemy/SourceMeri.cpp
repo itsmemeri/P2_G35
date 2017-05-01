@@ -34,18 +34,27 @@ void Combinaciones()
 	//creamos el map
 	std::unordered_map <key, std::string, pair_hash> combinaciones_map;
 	std::pair<std::string, std::string> key;
-	int espacio, mas, fin;
+	int espacio, mas, fin, longitud, inicio;
+	inicio = 0;
 	while (getline(fentrada, linea))
 	{
-		espacio = linea.find(" = ");
-		mas = linea.find(" + ");
-		fin = linea.find(" \n ");
+		//find
+		espacio = linea.find("=");
+		mas = linea.find("+");
+		fin = linea.find("\n");
 
-		key.first = linea.substr();
+		longitud = espacio - inicio;
+		element = linea.substr(inicio, longitud);
+		inicio = espacio + 1;
+		longitud = mas - inicio;
+		key.first = linea.substr(inicio, longitud);
+		inicio = mas + 1;
+		longitud = fin - inicio;
+		key.second = linea.substr(inicio, longitud);
+		inicio = 0;
+
 		combinaciones_map[key] = element;
-		//std::cout << linea << std::endl;
-		std::cout << element << "=" << key.first << "+" << key.second << std::endl;
-		
+		std::cout << element << "=" << key.first << "+" << key.second << std::endl;	
 	}
 		
 	//cerrar archivo
