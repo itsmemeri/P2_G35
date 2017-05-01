@@ -31,14 +31,17 @@ void Combinaciones()
 	//abrir archivo
 	std::ifstream fentrada;
 	fentrada.open("elements.dat");
+
 	//leer archivo y guardarlo
 	std::string linea;
+
 	//creamos la variable que usaremos de elemento
 	std::string element;
+
 	//creamos variables necesarias
-	std::pair<std::string, std::string> key;
 	int espacio, mas, fin, longitud, inicio;
 	inicio = 0;
+	key key1;
 	while (getline(fentrada, linea))
 	{
 		//find
@@ -50,13 +53,13 @@ void Combinaciones()
 		element = linea.substr(inicio, longitud);
 		inicio = espacio + 1;
 		longitud = mas - inicio;
-		key.first = linea.substr(inicio, longitud);
+		key1.first = linea.substr(inicio, longitud);
 		inicio = mas + 1;
 		longitud = fin - inicio;
-		key.second = linea.substr(inicio, longitud);
+		key1.second = linea.substr(inicio, longitud);
 		inicio = 0;
 
-		combinaciones_map[key] = element;
+		combinaciones_map[key1] = element;
 		//std::cout << element << "=" << key.first << "+" << key.second << std::endl;	
 	}
 	//cerrar archivo
@@ -73,14 +76,34 @@ void Print()
 		std::cout << i + 1 << " " << elements[i] << std::endl;
 	}
 }
+//Declaramos que existe la funcion delete
+void Delete(int pos);
 
-//funcion add
+//funcion combinar
+void Combinar(int pos1, int pos2)
+{
+	key aux;
+	if (pos1 != pos2)
+	{
+		
+		aux.first = elements[pos1];
+		aux.second = elements[pos2];
+		elements.insert(elements.end(), combinaciones_map[aux]);
+		Delete(pos2);
+		Delete(pos1);
+	}
+	else
+	{
+		std::cout << "Error" << std::endl;
+	}
+}
+//funcion add (DONE)
 void Add(int pos)
 {
 	elements.insert(elements.end(), elements[pos - 1]);
 }
 
-//funcion add basics
+//funcion add basics (DONE)
 void Addbasics()
 {
 	for (int i = 0; i < 4; i++)
@@ -89,13 +112,13 @@ void Addbasics()
 	}
 }
 
-//funcion delete
+//funcion delete (DONE)
 void Delete(int pos)
 {
 	elements.erase(elements.begin() + pos - 1);
 }
 
-//funcion info
+//funcion info (DONE)
 void Info(int pos)
 {
 	std::string url;
@@ -103,18 +126,18 @@ void Info(int pos)
 	ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 }
 
-//funcion sort
+//funcion sort (DONE)
 void Sort()
 {
 	std::sort(elements.begin(), elements.end());
 }
 
-//funcion clean
+//funcion clean (DONE)
 void Clean()
 {
-	for (int i = 0; i < elements.size(); i++)
+	for (int i = 0; i < elements.size() / 2; i++)
 	{
-		for (int j = i + 1; j < elements.size() - 2; j++)
+		for (int j = i + 1; j < elements.size(); j++)
 		{
 			if (elements[i] == elements [j])
 			{
@@ -126,14 +149,17 @@ void Clean()
 
 void main()
 {
-	std::string input;
+	//std::string input;
 	Combinaciones();
-	//Addbasics();
+	Addbasics();
 //	Sort();
 	//Print();
 	//system ("cls");
 	//Clean();
 	Print();
-	Info(3);
+	system("cls");
+	Combinar(1, 2);
+	Print();
+	//Info(3);
 	
 }
