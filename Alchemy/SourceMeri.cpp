@@ -37,8 +37,10 @@ void Combinaciones()
 	int contador = 1;
 	while (getline(fentrada, linea))
 	{
-		
-
+		int espacio = linea.find(" = ");
+		int mas = linea.find(" + ");
+		int fin = linea.find(" \n ");
+		key.first = linea.substr();
 		combinaciones_map[key] = element;
 		//std::cout << linea << std::endl;
 		std::cout << element << "=" << key.first << "+" << key.second << std::endl;
@@ -49,7 +51,21 @@ void Combinaciones()
 	fentrada.close();
 }
 	
+/*void Delete()
+{
+	int posicion;
+	std::cin >> posicion;
+	element.erase(element.begin() + posicion);
+}
 
+void Info()
+{
+	int posicion;
+	std::cin >> posicion;
+	std::string url;
+	url = "https://en.wikipedia.org/wiki/" + element[posicion]
+		ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+}*/
 
 void main()
 {

@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SourceMeri.cpp" />
+    <ClCompile Include="SourcePruebasMeri.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="elements.dat">
