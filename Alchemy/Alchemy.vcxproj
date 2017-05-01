@@ -148,6 +148,11 @@
   <ItemGroup>
     <ClCompile Include="SourceMeri.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="elements.dat">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
