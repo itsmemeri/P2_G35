@@ -138,7 +138,7 @@ void Clean()
 {
 	for (int i = 0; i < elements.size(); i++)
 	{
-		for (int j = i + 1; j < elements.size(); j++)
+		for (int j = elements.size() - 1; j > i; j--)
 		{
 			if (elements[i] == elements [j])
 			{
@@ -216,6 +216,14 @@ void main()
 			int num;
 			num = std::stoi(aux);
 			Delete(num);
+		}
+		else if (input == "clean")
+		{
+			Clean();
+		}
+		else if (input == "sort")
+		{
+			Sort();
 		}
 		Print();
 
