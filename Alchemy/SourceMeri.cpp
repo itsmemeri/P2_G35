@@ -8,7 +8,7 @@
 #include <utility>
 #include <algorithm>
 #include <Windows.h>
-
+#include "Header.h"
 
 //Para que no de error con el hash
 struct pair_hash {
@@ -66,7 +66,8 @@ void Combinaciones()
 	fentrada.close();
 }
 std::vector <std::string> basics({"Air", "Earth", "Fire", "Water"});
-std::vector <std::string> elements({"Air", "Earth", "Fire", "Water"});
+std::vector <std::string> elements (basics);
+//std::vector <std::string> elements({"Air", "Earth", "Fire", "Water"});
 
 //funcion para imprimir los nuevos elementos
 void Print()
@@ -132,10 +133,10 @@ void Sort()
 	std::sort(elements.begin(), elements.end());
 }
 
-//funcion clean (DONE)
+//funcion clean
 void Clean()
 {
-	for (int i = 0; i < elements.size() / 2; i++)
+	for (int i = 0; i < elements.size(); i++)
 	{
 		for (int j = i + 1; j < elements.size(); j++)
 		{
@@ -146,11 +147,79 @@ void Clean()
 		}
 	}
 }
+void Help() 
+{
+		std::cout << "--------------------------------------------------------------" << std::endl;
+		std::cout << "                       P2_G35's ALCHEMY                       " << std::endl;
+		std::cout << "--------------------------------------------------------------" << std::endl;
+		std::cout << "- Enter two numbers of your elements list to combine them." << std::endl;
+		std::cout << "- Enter the word 'add' and the number of an element to add a new instance of that element." << std::endl;
+		std::cout << "- Enter 'add basics' to add new instances of the 4 basic elements." << std::endl;
+		std::cout << "- Enter the word 'delete' and the number of an element to erase it from your list." << std::endl;
+		std::cout << "- Enter the word 'info' and the number of an element to get information about it in the explorer." << std::endl;
+		std::cout << "- Enter the word 'sort' to sort by alphabetical order the elements in the list." << std::endl;
+		std::cout << "- Enter the word 'clean' to delete all the instances of repeated elements." << std::endl;
+		std::cout << "- Enter the word 'help' to show this tutorial." << std::endl;
+		std::cout << std::endl;
+		
+}
 
 void main()
 {
-	//std::string input;
+	int puntuacion{ 0 };
+	std::string input;
 	Combinaciones();
+	Help();
+	Print();
+	if (combinaciones_map.size() != 390)
+	{
+		system("pause");
+	}
+
+	while (puntuacion < 395)
+	{
+		if (input == "help")
+		{
+			Help();
+		}
+		std::cin >> input;
+		system("cls");
+		if (input == "add")
+		{
+			std::string aux;
+			std::cin >> aux;
+			if (aux == "basics")
+			{
+				Addbasics();;
+			}
+			else if (aux == "%d")
+			{
+				int num;
+				num = stoi(aux);
+				Add(num);
+			}
+		}
+		else if (input == "Info")
+		{
+			std::string aux;
+			std::cin >> aux;
+			int num;
+			num = std::stoi(aux);
+			Info(num);
+		}
+		else if (input == "delete")
+		{
+			std::string aux;
+			std::cin >> aux;
+			int num;
+			num = std::stoi(aux);
+			Delete(num);
+		}
+		Print();
+
+	}
+	
+	/*
 	Addbasics();
 //	Sort();
 	//Print();
@@ -161,5 +230,5 @@ void main()
 	Combinar(1, 2);
 	Print();
 	//Info(3);
-	
+	*/
 }
