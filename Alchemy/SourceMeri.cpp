@@ -86,12 +86,17 @@ void Combinar(int pos1, int pos2)
 	key aux;
 	if (pos1 != pos2)
 	{
-		
-		aux.first = elements[pos1];
-		aux.second = elements[pos2];
+		/*if (combinaciones_map[aux] == NULL) 
+		{
+			aux.first = elements[pos2 ];
+			aux.second = elements[pos1];
+		}*/
+		aux.first = elements[pos1-1];
+		aux.second = elements[pos2-1];
+
 		elements.insert(elements.end(), combinaciones_map[aux]);
 		Delete(pos2);
-		Delete(pos1);
+		Delete(pos1); 		
 	}
 	else
 	{
@@ -135,7 +140,8 @@ void Sort()
 
 //funcion clean
 void Clean()
-{
+{/*
+	Sort();
 	for (int i = 0; i < elements.size(); i++)
 	{
 		for (int j = elements.size() - 1; j > i; j--)
@@ -145,7 +151,9 @@ void Clean()
 				Delete(j);
 			}
 		}
-	}
+	}*/
+
+	elements.erase(unique(elements.begin(), elements.end()), elements.end());
 }
 void Help() 
 {
@@ -192,13 +200,14 @@ void main()
 			{
 				Addbasics();
 			}
-			else
-			{
-				std::string aux;
-				std::cin >> aux;
+			else if (aux == "%d" )
+			{				
 				int num;
 				num = stoi(aux);
 				Add(num);
+			}
+			else {
+				std::cout << "Error" << std::endl;
 			}
 		}
 		else if (input == "info")
@@ -225,7 +234,17 @@ void main()
 		{
 			Sort();
 		}
+		else if (input == "combine") 
+		{
+			int aux1;
+			int aux2;
+			std::cin >> aux1 >> aux2;	
+			Combinar(aux1,aux2);			
+		}
+		else 
+		{ 
+			std::cout << "Error" << std::endl;
+		}
 		Print();
-
 	}
 }
