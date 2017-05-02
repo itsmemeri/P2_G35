@@ -190,16 +190,18 @@ void main()
 			std::cin >> aux;
 			if (aux == "basics")
 			{
-				Addbasics();;
+				Addbasics();
 			}
-			else if (aux == "%d")
+			else
 			{
+				std::string aux;
+				std::cin >> aux;
 				int num;
 				num = stoi(aux);
 				Add(num);
 			}
 		}
-		else if (input == "Info")
+		else if (input == "info")
 		{
 			std::string aux;
 			std::cin >> aux;
@@ -218,17 +220,4 @@ void main()
 		Print();
 
 	}
-	
-	/*
-	Addbasics();
-//	Sort();
-	//Print();
-	//system ("cls");
-	//Clean();
-	Print();
-	system("cls");
-	Combinar(1, 2);
-	Print();
-	//Info(3);
-	*/
 }
