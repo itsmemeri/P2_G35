@@ -87,7 +87,7 @@ void Print()
 }
 //Declaramos que existe la funcion delete
 void Delete(int pos);
-//void NewElement();
+void NewElement();
 //funcion combinar
 void Combinar(int pos1, int pos2)
 {
@@ -106,8 +106,18 @@ void Combinar(int pos1, int pos2)
 		}		
 		std::cout << "search: " << search->second << std::endl;
 		elements.push_back(search->second);
+		if (pos1 > pos2)
+		{
 		Delete(pos1);
 		Delete(pos2);
+		}
+		else
+		{
+			Delete(pos2);
+			Delete(pos1);
+		}
+		std::string element = search->second;
+		
 	}
 	else
 	{
