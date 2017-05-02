@@ -72,6 +72,7 @@ void Combinaciones()
 }
 std::vector <std::string> basics({"Air", "Earth", "Fire", "Water"});
 std::vector <std::string> elements (basics);
+std::vector <std::string> found_elements(basics);
 
 //funcion para imprimir los nuevos elementos
 void Print()
@@ -103,7 +104,8 @@ void Combinar(int pos1, int pos2)
 			aux.second = elements[pos1 - 1];
 			search = combinaciones_map.find({ aux.first, aux.second });		
 		}		
-		elements.insert(elements.end(), search->second);
+		std::cout << "search: " << search->second << std::endl;
+		elements.push_back(search->second);
 		Delete(pos1);
 		Delete(pos2);
 	}
@@ -173,18 +175,10 @@ void Help()
 //funcion elemento nuevo
 void NewElement(std::string element)
 {
-	bool repetido = false;
-
-	for (int i = 0; i < elements.size() - 1; i++)
-	{
-		if (elements.end() == elements.begin() + i)
-		{
-			repetido = true;
-		}
-	}
-	if (!repetido)
+	if (find(found_elements.begin(), found_elements.end(), element) == found_elements.end())
 	{
 		puntuacion++;
+		found_elements.push_back(element);
 	}
 }
 
@@ -215,15 +209,12 @@ void main()
 			{
 				Addbasics();
 			}
-			else /*if (aux == "%d" )*/
+			else 
 			{				
 				int num;
 				num = stoi(aux);
 				Add(num);
 			}
-			/*else {
-				std::cout << "Error" << std::endl;
-			}*/
 		}
 		else if (input == "info")
 		{
