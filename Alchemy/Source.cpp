@@ -11,7 +11,8 @@
 #include "Header.h"
 
 //Para que no de error con el hash
-struct pair_hash {
+struct pair_hash 
+{
 	template <class T1, class T2>
 	std::size_t operator () (const std::pair<T1, T2> &p) const {
 		auto h1 = std::hash<T1>{}(p.first);
@@ -85,39 +86,52 @@ void Print()
 	}
 	
 }
-//Declaramos que existe la funcion delete
+//Declaramos que existe la funcion delete y la de new element
 void Delete(int pos);
-void NewElement();
+void NewElement(std::string element);
 //funcion combinar
 void Combinar(int pos1, int pos2)
 {
 	key aux;
-	if (pos1 != pos2)
+
+	if (pos1 - 1 < elements.size() && pos2 - 1 < elements.size() && pos1 != pos2)
 	{
 		aux.first = elements[pos1-1];
 		aux.second = elements[pos2-1];
 		auto search = combinaciones_map.find({ aux.first, aux.second });
 		
+		if (search == combinaciones_map.end())
+		{
+			combinaciones_map.find({ aux.second, aux.first });
+		}
 		if (!combinaciones_map.count(aux))
 		{
 			aux.first = elements[pos2 - 1];
 			aux.second = elements[pos1 - 1];
-			search = combinaciones_map.find({ aux.first, aux.second });		
-		}		
-		std::cout << "search: " << search->second << std::endl;
-		elements.push_back(search->second);
-		if (pos1 > pos2)
+			search = combinaciones_map.find({ aux.first, aux.second });	
+		}
+
+		if ((search == combinaciones_map.find({ aux.first, aux.second }) || search == combinaciones_map.find({ aux.second, aux.first })) && search !=combinaciones_map.end())
 		{
-		Delete(pos1);
-		Delete(pos2);
+			std::cout << "search: " << search->second << std::endl;
+			elements.push_back(search->second);
+			NewElement(search->second);
+			if (pos1 > pos2)
+			{
+				Delete(pos1);
+				Delete(pos2);
+			}
+			else
+			{
+				Delete(pos2);
+				Delete(pos1);
+			}
+			std::string element = search->second;
 		}
 		else
 		{
-			Delete(pos2);
-			Delete(pos1);
+			std::cout << "Error" << std::endl;
 		}
-		std::string element = search->second;
-		
 	}
 	else
 	{
@@ -127,7 +141,14 @@ void Combinar(int pos1, int pos2)
 //funcion add (DONE)
 void Add(int pos)
 {
-	elements.insert(elements.end(), elements[pos - 1]);
+	if (pos - 1 < elements.size())
+	{
+		elements.insert(elements.end(), elements[pos - 1]);
+	}
+	else
+	{
+		std::cout << "Error" << std::endl;
+	}
 }
 
 //funcion add basics (DONE)
@@ -142,15 +163,29 @@ void Addbasics()
 //funcion delete (DONE)
 void Delete(int pos)
 {
-	elements.erase(elements.begin() + pos - 1);
+	if (pos - 1 < elements.size())
+	{
+		elements.erase(elements.begin() + pos - 1);
+	}
+	else 
+	{
+		std::cout << "Error" << std::endl;
+	}
 }
 
 //funcion info (DONE)
 void Info(int pos)
 {
-	std::string url;
-	url = "https://en.wikipedia.org/wiki/" + elements[pos - 1];
-	ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+	if (pos - 1 < elements.size())
+	{
+		std::string url;
+		url = "https://en.wikipedia.org/wiki/" + elements[pos - 1];
+		ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+	}
+	else
+	{
+		std::cout << "Error" << std::endl;
+	}
 }
 
 //funcion sort (DONE)
@@ -159,12 +194,13 @@ void Sort()
 	std::sort(elements.begin(), elements.end());
 }
 
-//funcion clean
+//funcion clean (DONE)
 void Clean()
 {
 	Sort();
 	elements.erase(unique(elements.begin(), elements.end()), elements.end());
 }
+//Imprimir los comandos de Help (DONE)
 void Help() 
 {
 		std::cout << "--------------------------------------------------------------" << std::endl;
@@ -182,7 +218,7 @@ void Help()
 		
 }
 
-//funcion elemento nuevo
+//funcion elemento nuevo (DONE)
 void NewElement(std::string element)
 {
 	if (find(found_elements.begin(), found_elements.end(), element) == found_elements.end())
